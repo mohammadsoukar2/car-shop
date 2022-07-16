@@ -1,0 +1,75 @@
+<div class="hide " id="model">
+  <div class="card">
+    <div class="card-header">
+      <h2>Model page</h2>
+
+    </div>
+    <div class="card-body">
+      <button class="btn btn-primary" id="add-model-btn">
+        Add new model
+      </button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header card-header-primary">
+      Models table
+    </div>
+    <div class="card-body">
+      <div>
+        <table class="table" id="md">
+          <thead>
+            <tr>
+              <th scope="col">Model Name</th>
+              <th scope="col">Model Make</th>
+              <th scope="col">Model Fuel</th>
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="models-table">
+            {{#each models}}
+            <tr>
+              <td>
+                {{this.model_name}}
+              </td>
+              <td>
+                {{this.make}}
+              </td>
+              <td>
+                {{this.fuel}}
+              </td>
+              <td class="text-center">
+                <a class="bg-white text-danger mr-3"  style="border-radius:100% !important" href="#" >
+                      <i class="material-icons">close</i>
+                </a>
+                <a class="bg-white text-success" style="border-radius:100% !important"  href="#" >
+                      <i class="material-icons">edit</i>
+                </a>
+              </td>
+            </tr>
+
+
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+{{#section 'scripts'}}
+
+
+<script>
+  $(document).ready(function () {
+    $('#md').DataTable({
+      processing: true,
+
+    });
+  });
+</script>
+
+
+{{/section}}

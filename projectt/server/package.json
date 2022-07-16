@@ -1,0 +1,33 @@
+{
+  "name": "projectt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^17.0.31",
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.3",
+    "express-fileupload": "^1.3.1",
+    "express-handlebars": "^6.0.6",
+    "express-handlebars-sections": "^1.0.1",
+    "express-validator": "^6.14.0",
+    "fs": "0.0.1-security",
+    "http-error-codes": "^1.0.1",
+    "http-errors": "^2.0.0",
+    "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.4",
+    "pg": "^8.7.3",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
+  }
+}
