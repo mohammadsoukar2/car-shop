@@ -2,15 +2,17 @@
 
 
 const express = require('express') 
-
+const part=require('../../../src/api/part/function.part');
 const router = express.Router() 
 
   
     router.get('/', (req, res) => {
         
         //* return the part page of dashboard
-
-        res.render('part/index'); 
+        part.getBy().then((data)=>{
+            res.render('part/index',{parts:data}); 
+        });    
+        
     
     });
 

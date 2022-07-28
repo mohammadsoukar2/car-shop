@@ -68,7 +68,7 @@ const createPart =async (part:Part) => {
        return result;     
   }
   
-  const getBy = async( key?:string , value?:string) :Promise<Part[]> =>{
+ export const getBy = async( key?:string , value?:string) :Promise<Part[]> =>{
     let parts  : Part[];
      if((!key && value)|| (key && !value))throw new Error ('Invalid Argumemts');
      let query =`SELECT * FROM public."part"`;

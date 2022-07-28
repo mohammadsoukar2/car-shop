@@ -110,10 +110,10 @@ const createCar = async (car: Car) => {
     return result;
 }
 
-const getBy = async (key?: string, value?: string): Promise<Car[]> => {
+export const getBy = async (key?: string, value?: string): Promise<Car[]> => {
     let Cars: Car[];
     if ((!key && value) || (key && !value)) throw new Error('Invalid Argumemts');
-    let query = `SELECT * FROM public."car"`;
+    let query = `SELECT * FROM public."car" as c join public."model" as m on c.model_id=m.id`;
     const queryValues: any[] = [];
     if (key && value && Object.keys(getDefaultCar()).includes(key.trim())) {
         query += ` WHERE "${key.trim()}"=$1`;
