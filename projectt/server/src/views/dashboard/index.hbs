@@ -1,4 +1,3 @@
-
 <div id="dashboard">
 
   <div class="row">
@@ -18,7 +17,7 @@
           </h3>
         </div>
         <div class="card-footer">
-          
+
         </div>
       </div>
     </div>
@@ -34,7 +33,7 @@
           </h3>
         </div>
         <div class="card-footer">
-          
+
         </div>
       </div>
     </div>
@@ -50,7 +49,7 @@
           </h3>
         </div>
         <div class="card-footer">
-         
+
         </div>
       </div>
     </div>
@@ -64,7 +63,7 @@
           <h3 class="card-title"><span id="store-count"></span><small>Stores</small></h3>
         </div>
         <div class="card-footer">
-         
+
         </div>
       </div>
     </div>
@@ -80,13 +79,13 @@
           </h3>
         </div>
         <div class="card-footer">
-         
+
         </div>
       </div>
     </div>
   </div>
-  {{!-- 
-  
+  {{!--
+
   <div class="row">
     <div class="col-md-6">
       <div class="card card-chart">
@@ -342,13 +341,13 @@
     success: function (data) {
 
       if (data.code == 200) {
-        console.log(data.data.models);  
+        console.log(data.data.models);
         $('#car-count').append(data.data.cars);
         $('#model-count').append(data.data.models);
         $('#store-count').append(data.data.stores);
-        $('#agency-count').append(data.data.agencies);        
+        $('#agency-count').append(data.data.agencies);
         $('#part-count').append(data.data.parts);
-        
+
       }
     }
   })

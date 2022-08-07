@@ -85,22 +85,24 @@ app.engine('hbs', expresshbs.engine({
             }
         },
         asset: (file) => {
-            return app.locals.baseUrl+file;
+            return app.locals.baseUrl + file;
         },
         decoder: (images) => {
+                
+
             return stringify(images);
         },
         firstImage: (images) => {
             try {
                 // var imgs = JSON.parse(images);
 
-                return app.locals.baseUrl + images[0];
+                return app.locals.baseUrl + '/' + images[0];
             } catch (e) { }
             return '';
 
         },
-        route:(path)=>{
-            return app.locals.baseUrl+path;
+        route: (path) => {
+            return app.locals.baseUrl + path;
         }
     }
 }));
