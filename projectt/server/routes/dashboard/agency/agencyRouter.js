@@ -1,26 +1,28 @@
 // * start of the router 
 
 
-const express = require('express') 
+const express = require('express')
+const agency = require('./../../../src/api/agency/function.agency')
+const router = express.Router()
 
-const router = express.Router() 
 
-  
-    router.get('/', (req, res) => {
-        
-        //* return the agency page of dashboard
+router.get('/', (req, res) => {
 
-        res.render('agency/index'); 
-    
+    //* return the agency page of dashboard
+    agency.getBy().then((data) => {
+        res.render('agency/index', { agencies: data });
     });
 
-    router.get('/create', (req, res) => {
-        
-        //* return the agency page of dashboard
+});
 
-        res.render('agency/create'); 
-    
-    });
+router.get('/create', (req, res) => {
+
+    //* return the agency page of dashboard
+
+    res.render('agency/create');
+
+});
+
 
 
 

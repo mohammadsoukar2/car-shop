@@ -103,7 +103,7 @@ export const postCar: RequestHandler[] = [
 ]
 
 
-const createCar = async (car: Car) => {
+export const createCar = async (car: Car) => {
 
     const query = generateInserteQuery(`public."car"`, getDefaultCar(), car, true, true);
     const result = (await pg.db.query<Car>(query.text, query.values)).rows[0];
@@ -113,13 +113,14 @@ const createCar = async (car: Car) => {
 export const getBy = async (key?: string, value?: string): Promise<Car[]> => {
     let Cars: Car[];
     if ((!key && value) || (key && !value)) throw new Error('Invalid Argumemts');
-    let query = `SELECT * FROM public."car" as c join public."model" as m on c.model_id=m.id`;
+    let query = `SELECT c.* ,m.make,m.model_name FROM public."car" as c join public."model" as m on c.model_id=m.id`;
     const queryValues: any[] = [];
     if (key && value && Object.keys(getDefaultCar()).includes(key.trim())) {
-        query += ` WHERE "${key.trim()}"=$1`;
+        query += ` WHERE c.${key.trim()}=$1`;
         queryValues.push(value);
     }
     query += ' ;';
+    console.log(query);
     Cars = (await pg.db.query<Car>(query, queryValues)).rows;
     return Cars;
 }

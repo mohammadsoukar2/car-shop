@@ -12,10 +12,13 @@
   "dependencies": {
     "@types/node": "^17.0.31",
     "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.3",
     "express-fileupload": "^1.3.1",
     "express-handlebars": "^6.0.6",
     "express-handlebars-sections": "^1.0.1",
+    "express-session": "^1.17.3",
     "express-validator": "^6.14.0",
     "fs": "0.0.1-security",
     "http-error-codes": "^1.0.1",

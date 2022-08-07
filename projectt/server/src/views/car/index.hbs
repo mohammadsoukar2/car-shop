@@ -5,15 +5,15 @@
 
     </div>
     <div class="card-body">
-      <button class="btn btn-primary" id="add-Car-btn">
+      <a href="cars/create" class="btn btn-primary" id="add-Car-btn">
         Add new Car
-      </button>
+      </a>
     </div>
   </div>
   <div class="card">
     <div class="card-header card-header-primary">
       Cars table <br>
-      There are 100
+
     </div>
     <div class="card-body">
       <div>
@@ -30,14 +30,19 @@
 
             {{#each cars}}
             <tr>
-              <td>{{this.color}}</td>
+              <td>
+
+                <img src="{{firstImage this.images}}" style="width:50px;height:50px;">
+
+                {{this.color}}
+              </td>
               <td>{{this.make}}</td>
               <td>{{this.model_name}}</td>
               <td class="text-center">
                 <a class="bg-white text-danger mr-3" style="border-radius:100% !important" href="#">
                   <i class="material-icons">close</i>
                 </a>
-                <a class="bg-white text-success" style="border-radius:100% !important" href="#">
+                <a class="bg-white text-success" style="border-radius:100% !important" href="cars/{{this.id}}/edit">
                   <i class="material-icons">edit</i>
                 </a>
               </td>

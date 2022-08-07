@@ -6,7 +6,7 @@ export  interface  Part{
     year:string,
     photo:string,
     model_id:string,
-    stor_id:string
+    store_id:string
 }
 
 const  defaultPart : Part = {
@@ -15,7 +15,7 @@ const  defaultPart : Part = {
     year:'',
     photo:'',
     model_id:'',
-    stor_id:''
+    store_id:''
 }
  export const getDefaultPart = ()=>{
      return objectify(defaultPart);

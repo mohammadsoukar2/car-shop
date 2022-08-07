@@ -21,6 +21,7 @@ export const verifyAuthToken = (idToken: string)=>{
         return null;
     }
 }
+
 // export const verifyAuthToken = async(req : Request,res:Response,next:NextFunction)=>{
 //     try {
 //          const decoded = jwt.verify(req.body.token , secret);

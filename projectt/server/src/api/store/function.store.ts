@@ -61,7 +61,7 @@ export const createStore= async(store:Store)=>{
     const result = (await pg.db.query<Store>(query.text,query.values)).rows[0];
       return result;
 }
-const getBy = async( key?:string , value?:string) :Promise<Store[]> =>{
+export const getBy = async( key?:string , value?:string) :Promise<Store[]> =>{
     let Stores  : Store[];
      if((!key && value)|| (key && !value))throw new Error ('Invalid Argumemts');
      let query =`SELECT * FROM public."store"`;

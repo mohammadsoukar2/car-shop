@@ -5,9 +5,9 @@
 
     </div>
     <div class="card-body">
-      <button class="btn btn-primary" id="add-Part-btn">
+      <a href="parts/create" class="btn btn-primary" id="add-Part-btn">
         Add new Part
-      </button>
+      </a>
     </div>
   </div>
   <div class="card">
@@ -34,13 +34,13 @@
                 <a class="bg-white text-danger mr-3" style="border-radius:100% !important" href="#">
                   <i class="material-icons">close</i>
                 </a>
-                <a class="bg-white text-success" style="border-radius:100% !important" href="#">
+                <a class="bg-white text-success" style="border-radius:100% !important" href="parts/{{this.id}}/edit">
                   <i class="material-icons">edit</i>
                 </a>
               </td>
             </tr>
             {{/each}}
-           
+
           </tbody>
         </table>
       </div>

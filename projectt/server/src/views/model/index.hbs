@@ -5,9 +5,9 @@
 
     </div>
     <div class="card-body">
-      <button class="btn btn-primary" id="add-model-btn">
+      <a href="models/create" class="btn btn-primary" id="add-model-btn">
         Add new model
-      </button>
+      </a>
     </div>
   </div>
   <div class="card">
@@ -38,11 +38,14 @@
                 {{this.fuel}}
               </td>
               <td class="text-center">
-                <a class="bg-white text-danger mr-3"  style="border-radius:100% !important" href="#" >
-                      <i class="material-icons">close</i>
-                </a>
-                <a class="bg-white text-success" style="border-radius:100% !important"  href="#" >
-                      <i class="material-icons">edit</i>
+                <form action="models/{{this.id}}/destroy" method="post" style="display: inline">
+                  <button class="bg-white text-danger mr-3" style="border:white !important;">
+                    <i class="material-icons">close</i>
+                  </button>
+                </form>
+
+                <a class="bg-white text-success" style="border-radius:100% !important" href="models/{{this.id}}/edit">
+                  <i class="material-icons">edit</i>
                 </a>
               </td>
             </tr>
