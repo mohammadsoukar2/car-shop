@@ -3,8 +3,9 @@ import {param , body } from 'express-validator';
 import * as pg from '../../lib.pool';
 import {getDefaultStore, Store} from '../../../../models/store.model';
 import {StatusCodes} from 'http-status-codes';
-import { generateInserteQuery } from '../../lib.sqlUtils';
+import { generateDeleteQuery, generateInserteQuery } from '../../lib.sqlUtils';
 import { decodeToken } from '../../lib.decodeJWT';
+import { deleteParts } from '../part/function.part';
 // import { decodeToken } from '../../lib.decodeJWT';
 //import { generateAuthToken, verifyAuthToken } from '../../lib.auth';
 
@@ -75,3 +76,16 @@ export const getBy = async( key?:string , value?:string) :Promise<Store[]> =>{
      Stores =(await pg.db.query<Store>(query,queryValues)).rows;
      return Stores;
   }
+
+
+  
+export const removeStore = async (a: Store) => {
+
+
+    deleteParts('store_id',a.id);
+    const query = generateDeleteQuery(`public."store"`, { id: a.id });
+    const result = (await pg.db.query<Store>(query.text, query.values)).rows[0];
+    return result;
+
+
+}

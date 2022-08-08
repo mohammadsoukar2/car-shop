@@ -5,9 +5,11 @@
 
     </div>
     <div class="card-body">
-      <a href="parts/create" class="btn btn-primary" id="add-Part-btn">
+      {{#if user.hasStore}}
+      <a href="{{baseUrl}}/dashboard/parts/create" class="btn btn-primary" id="add-Part-btn">
         Add new Part
       </a>
+      {{/if}}
     </div>
   </div>
   <div class="card">
@@ -21,6 +23,10 @@
           <thead>
             <tr>
               <th scope="col">Part Name</th>
+              <th scope="col"> store</th>
+              <th scope="col">model</th>
+              <th scope="col">year</th>
+              
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -29,12 +35,27 @@
             {{#each parts}}
             <tr>
 
-              <td>{{this.name}}</td>
+              <td>
+                
+                <img src="{{asset this.photo}}" style="width:50px;height:50px;">
+                {{this.name}}
+              </td>
+              <td>
+                {{this.store_name}}
+              </td>
+              <td>
+                {{this.make}} {{this.model_name}}
+              </td>
+              <td>
+                {{this.year}}
+              </td>
               <td class="text-center">
-                <a class="bg-white text-danger mr-3" style="border-radius:100% !important" href="#">
-                  <i class="material-icons">close</i>
-                </a>
-                <a class="bg-white text-success" style="border-radius:100% !important" href="parts/{{this.id}}/edit">
+                <form action="{{baseUrl}}/dashboard/parts/{{this.id}}/destroy" method="post" style="display: inline">
+                  <button class="bg-white text-danger mr-3" style="border:white !important;cursor:pointer;outline:none">
+                    <i class="material-icons">close</i>
+                  </button>
+                </form>
+                <a class="bg-white text-success" style="border-radius:100% !important;cursor:pointer;outline:none" href="{{baseUrl}}/dashboard/parts/{{this.id}}/edit">
                   <i class="material-icons">edit</i>
                 </a>
               </td>

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { param, body } from 'express-validator';
 import * as pg from '../../lib.pool';
 import { StatusCodes } from 'http-status-codes';
-import { generateInserteQuery } from '../../lib.sqlUtils';
+import { generateInserteQuery, generateUpdateQuery } from '../../lib.sqlUtils';
 import { Modeul, getDefaultModeul } from '../../../../models/modeul.model';
 
 
@@ -140,4 +140,14 @@ export const getModels = async (key?: string, value?: string): Promise<Modeul[]>
 const getCount = async () => {
     let query = `SELECT COUNT(*) FROM public."model"`;
     return (await pg.db.query<Modeul>(query)).rows;
+}
+
+
+
+export const updateModel = async (modeul: Modeul) => {
+    const query = generateUpdateQuery(`public."model"`, getDefaultModeul(), modeul, true);
+    query.text += `WHERE id =$${++query.paramCounter}`;
+    query.values.push(modeul.id);
+    const result = (await pg.db.query<Modeul>(query.text, query.values)).rows[0];
+    return result;
 }

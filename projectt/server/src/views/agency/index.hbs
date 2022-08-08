@@ -5,15 +5,13 @@
 
     </div>
     <div class="card-body">
-      <button class="btn btn-primary" id="add-Agen-btn">
-        Add new Agency
-      </button>
+
     </div>
   </div>
   <div class="card">
     <div class="card-header card-header-primary">
       Agents table <br>
-      There are 100 Agents
+      There are {{agencies.length}} Agents
     </div>
     <div class="card-body">
       <div>
@@ -21,6 +19,11 @@
           <thead>
             <tr>
               <th scope="col">Name</th>
+              <th scope="col">email</th>
+
+              <th scope="col">location</th>
+              <th scope="col">facebook</th>
+
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -28,13 +31,16 @@
             {{#each agencies}}
             <tr>
               <td>{{this.name}}</td>
+              <td>{{this.email}}</td>
+              <td>{{this.location}}</td>
+              <td>{{this.facebook}}</td>
               <td class="text-center">
-                <a class="bg-white text-danger mr-3" style="border-radius:100% !important" href="#">
-                  <i class="material-icons">close</i>
-                </a>
-                <a class="bg-white text-success" style="border-radius:100% !important" href="#">
-                  <i class="material-icons">edit</i>
-                </a>
+                <form action="{{baseUrl}}/dashboard/agency/{{this.id}}/destroy" method="post" style="display: inline">
+                  <button class="bg-white text-danger mr-3" style="border:white !important;cursor:pointer;outline:none">
+                    <i class="material-icons">close</i>
+                  </button>
+                </form>
+
               </td>
             </tr>
             {{/each}}

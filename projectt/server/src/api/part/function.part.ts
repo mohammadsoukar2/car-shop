@@ -3,7 +3,7 @@ import { param, body } from 'express-validator';
 import * as pg from '../../lib.pool';
 import { getDefaultPart, Part } from '../../../../models/part.module';
 import { StatusCodes } from 'http-status-codes';
-import { generateInserteQuery } from '../../lib.sqlUtils';
+import { generateDeleteQuery, generateInserteQuery, generateUpdateQuery } from '../../lib.sqlUtils';
 import * as multer from 'multer';
 
 
@@ -68,11 +68,11 @@ export const createPart = async (part: Part) => {
 }
 
 
-export const storePart = async (req) => {
+export const storePart = async (req, res) => {
 
     const newPart: Part = req.body;
-    newPart.store_id='369f1c3e-0e50-11ed-8655-74f06db73268';
-    newPart.photo = ''+req.file.path;
+    newPart.store_id = res.locals.user.storeId;
+    newPart.photo = '' + req.file.path;
     const query = generateInserteQuery(`public."part"`, getDefaultPart(), newPart, true, true);
     const result = (await pg.db.query<Part>(query.text, query.values)).rows[0];
     return result;
@@ -81,13 +81,44 @@ export const storePart = async (req) => {
 export const getBy = async (key?: string, value?: string): Promise<Part[]> => {
     let parts: Part[];
     if ((!key && value) || (key && !value)) throw new Error('Invalid Argumemts');
-    let query = `SELECT * FROM public."part"`;
+    let query = `SELECT p.* ,s.name as store_name,m.make,m.model_name FROM public."part" as p join public."model" as m on p.model_id=m.id join public."store" as s on p.store_id=s.id`;
     const queryValues: any[] = [];
     if (key && value && Object.keys(getDefaultPart()).includes(key.trim())) {
-        query += ` WHERE "${key.trim()}"=$1`;
+        query += ` WHERE p."${key.trim()}"=$1`;
         queryValues.push(value);
     }
     query += ' ;';
     parts = (await pg.db.query<Part>(query, queryValues)).rows;
     return parts;
+}
+
+
+export const updatePart = async (part: Part, hasPhoto: boolean) => {
+
+    const query = generateUpdateQuery(`public."part"`, getDefaultPart(), part, true, hasPhoto);
+    query.text += `WHERE id =$${++query.paramCounter}`;
+    query.values.push(part.id);
+    const result = (await pg.db.query<Part>(query.text, query.values)).rows[0];
+    return result;
+}
+
+export const removePart = async (part: Part) => {
+    const query = generateDeleteQuery(`public."part"`, { id: part.id });
+    const result = (await pg.db.query<Part>(query.text, query.values)).rows[0];
+    return result;
+}
+
+export const deleteParts = async (key?: string, value?: string): Promise<Part[]> => {
+
+    let modeuls: Part[];
+    if ((key && !value) || (key && !value)) throw new Error('invalid arguments');
+    let query = `delete FROM public."part"`;
+    const queryValues: any[] = [];
+    if (key && value && Object.keys(getDefaultPart()).includes(key.trim())) {
+        query += ` WHERE "${key.trim()}"= $1`;
+        queryValues.push(value);
+    }
+    query += ';';
+    modeuls = (await pg.db.query<Part>(query, queryValues));
+    return modeuls;
 }

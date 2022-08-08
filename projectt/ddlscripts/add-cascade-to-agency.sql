@@ -1,0 +1,10 @@
+DO $$ BEGIN 
+
+
+ALTER TABLE public."agency"
+DROP CONSTRAINT fk44436,
+ADD CONSTRAINT fk44439
+   FOREIGN KEY (user_id)
+   REFERENCES public."user"(id)
+   ON DELETE CASCADE;
+$$

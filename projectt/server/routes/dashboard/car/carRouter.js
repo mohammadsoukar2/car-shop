@@ -14,14 +14,24 @@ const model = require('../../../src/api/modeul/function.modeul');
 router.get('/', (req, res) => {
 
     //* return the car page of dashboard
-    car.getBy().then((data) => {
-        console.log(data);
-        res.render('car/index', { cars: data });
-    });
+    if (res.locals.user.hasAgency) {
+        car.getBy('agency_id', res.locals.user.agencyId).then((data) => {
+            console.log(data);
+            res.render('car/index', { cars: data });
+        });
+    } else if (res.locals.user.isAdmin) {
+        car.getBy().then((data) => {
+            console.log(data);
+            res.render('car/index', { cars: data });
+        });
+    }
 });
 
 router.get('/create', (req, res) => {
-
+    var user = res.locals.user;
+    if (!user.hasAgency) {
+        res.status(403).send("403 FORBIDDEN");
+    }
     //* return the car page of dashboard
     model.getBy().then((data) => {
         res.render('car/create', { models: data });
@@ -29,10 +39,14 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/store', car.upload.array('images[]', 4), (req, res, next) => {
+    var user = res.locals.user;
 
+    if (!user.hasAgency) {
+        res.status(403).send("403 FORBIDDEN");
+    }
     //* return the car page of dashboard
     reqCar = req.body;
-    reqCar.agency_id = '79447652-0e4f-11ed-8b2f-74f06db73268';
+    reqCar.agency_id = user.agencyId;
     reqCar.images = [];
     for (file of req.files) {
 
@@ -59,14 +73,45 @@ router.get('/:id/edit', (req, res) => {
     });
 });
 
+
+router.post('/:id/update', car.upload.array('images[]', 4), (req, res) => {
+
+
+
+    reqCar = req.body;
+    var hasImages=false;
+    if (req.files) {
+        reqCar.images = [];
+        for (file of req.files) {
+            hasImages=true;
+            reqCar.images.push(file.path);
+        };
+    }
+   reqCar.id = req.params.id;
+   console.log(reqCar);
+    car.updateCar(reqCar,hasImages).then(() => {
+        req.flash("success", "Car updated successfully");
+        res.redirect('back');
+    }).catch(() => {
+        req.flash("error", "Something went wrong !");
+        res.redirect('back');
+    });
+
+
+
+});
+
 router.post('/:id/destroy', (req, res) => {
 
     //* return the edit model page of dashboard
 
-    model.deleteM('id', req.params.id).then((data) => {
-        console.log(data);
+    car.removeCar({ id: req.params.id }).then((data) => {
+        req.flash("success", "Cars wwas removed successfully")
         res.redirect('back');
-    }).catch((error) => { res.status(404).send(error) });
+    }).catch((error) => {
+        req.flash("error", "Something went wrong !");
+        res.redirect('back');
+    });
 
 });
 

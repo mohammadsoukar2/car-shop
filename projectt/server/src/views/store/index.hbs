@@ -1,0 +1,70 @@
+<div class="hide " id="Agency">
+  <div class="card">
+    <div class="card-header">
+      <h2>Store page</h2>
+
+    </div>
+    <div class="card-body">
+
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header card-header-primary">
+      Stores table <br>
+      There are {{stores.length}} Stores
+    </div>
+    <div class="card-body">
+      <div>
+        <table class="table" id="md">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">email</th>
+
+              <th scope="col">location</th>
+              <th scope="col">facebook</th>
+
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each stores}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.email}}</td>
+              <td>{{this.location}}</td>
+              <td>{{this.facebook}}</td>
+              <td class="text-center">
+                <form action="{{baseUrl}}/dashboard/store/{{this.id}}/destroy" method="post" style="display: inline">
+                  <button class="bg-white text-danger mr-3" style="border:white !important;cursor:pointer;outline:none">
+                    <i class="material-icons">close</i>
+                  </button>
+                </form>
+
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+{{#section 'scripts'}}
+
+
+<script>
+  $(document).ready(function () {
+    $('#md').DataTable({
+      processing: true,
+
+    });
+  });
+</script>
+
+
+{{/section}}

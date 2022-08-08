@@ -61,6 +61,7 @@ app.engine('hbs', expresshbs.engine({
 
             switch (operator) {
                 case '==':
+                    console.log(v1,v2);
                     return (v1 == v2) ? options.fn(this) : options.inverse(this);
                 case '===':
                     return (v1 === v2) ? options.fn(this) : options.inverse(this);
@@ -85,7 +86,7 @@ app.engine('hbs', expresshbs.engine({
             }
         },
         asset: (file) => {
-            return app.locals.baseUrl + file;
+            return app.locals.baseUrl + '/' +file;
         },
         decoder: (images) => {
                 
@@ -103,7 +104,8 @@ app.engine('hbs', expresshbs.engine({
         },
         route: (path) => {
             return app.locals.baseUrl + path;
-        }
+        },
+        
     }
 }));
 

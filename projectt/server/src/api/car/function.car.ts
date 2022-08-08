@@ -3,7 +3,7 @@ import { param, body } from 'express-validator';
 import * as pg from '../../lib.pool';
 import { getDefaultCar, Car } from '../../../../models/car.model';
 import { StatusCodes } from 'http-status-codes';
-import { generateInserteQuery } from '../../lib.sqlUtils';
+import { generateDeleteQuery, generateInserteQuery, generateUpdateQuery } from '../../lib.sqlUtils';
 import * as multer from 'multer';
 //import * as fs from 'fs'; 
 //import {UploadedFile} from 'express-fileupload';
@@ -113,7 +113,7 @@ export const createCar = async (car: Car) => {
 export const getBy = async (key?: string, value?: string): Promise<Car[]> => {
     let Cars: Car[];
     if ((!key && value) || (key && !value)) throw new Error('Invalid Argumemts');
-    let query = `SELECT c.* ,m.make,m.model_name FROM public."car" as c join public."model" as m on c.model_id=m.id`;
+    let query = `SELECT c.* ,m.make,m.model_name,a.name as agency_name FROM public."car" as c join public."model" as m on c.model_id=m.id join public."agency" as a on c.agency_id=a.id`;
     const queryValues: any[] = [];
     if (key && value && Object.keys(getDefaultCar()).includes(key.trim())) {
         query += ` WHERE c.${key.trim()}=$1`;
@@ -130,3 +130,33 @@ const getCount = async () => {
     return (await pg.db.query<Car>(query)).rows;
 }
 
+
+export const updateCar = async (car: Car,hasImages :boolean) => {
+
+    const query = generateUpdateQuery(`public."car"`, getDefaultCar(), car, true, hasImages);
+    query.text += `WHERE id =$${++query.paramCounter}`;
+    query.values.push(car.id);
+    const result = (await pg.db.query<Car>(query.text, query.values)).rows[0];
+    return result;
+}
+
+export const removeCar = async (car: Car) => {
+    const query = generateDeleteQuery(`public."car"`, { id: car.id });
+    const result = (await pg.db.query<Car>(query.text, query.values)).rows[0];
+    return result;
+}
+
+export const deleteCars = async (key?: string, value?: string): Promise<Car[]> => {
+
+    let modeuls: Car[];
+    if ((key && !value) || (key && !value)) throw new Error('invalid arguments');
+    let query = `delete FROM public."car"`;
+    const queryValues: any[] = [];
+    if (key && value && Object.keys(getDefaultCar()).includes(key.trim())) {
+        query += ` WHERE "${key.trim()}"= $1`;
+        queryValues.push(value);
+    }
+    query += ';';
+    modeuls = (await pg.db.query<Car>(query, queryValues));
+    return modeuls;
+}

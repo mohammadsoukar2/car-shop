@@ -12,13 +12,13 @@
   <div class="sidebar-wrapper">
     <ul class="nav">
       <li class="nav-item" id="dash">
-        <a class="nav-link" href="/dashboard">
+        <a class="nav-link" href="{{baseUrl}}/dashboard">
           <i class="material-icons">dashboard</i>
           <p>Dashboard</p>
         </a>
       </li>
       <li class="nav-item" id="mod">
-        <a class="nav-link" href="/dashboard/models">
+        <a class="nav-link" href="{{baseUrl}}/dashboard/models">
           <i class="material-icons">person</i>
           <p>Model</p>
         </a>
@@ -26,7 +26,7 @@
 
       {{#ifCond user.hasAgency '||' user.isAdmin}}
       <li class="nav-item" id="Car">
-        <a class="nav-link" href="/dashboard/cars">
+        <a class="nav-link" href="{{baseUrl}}/dashboard/cars">
           <div class="card-icon">
             <i class="material-icons">garage</i>
           </div>
@@ -36,7 +36,7 @@
       {{/ifCond}}
       {{#ifCond user.hasStore '||' user.isAdmin}}
       <li class="nav-item" id="Part">
-        <a class="nav-link" href="/dashboard/parts">
+        <a class="nav-link" href="{{baseUrl}}/dashboard/parts">
           <div class="card-icon">
             <i class="material-icons">build</i>
           </div>
@@ -46,9 +46,15 @@
       {{/ifCond}}
       {{#if user.isAdmin}}
       <li class="nav-item" id="Agen">
-        <a class="nav-link" href="/dashboard/agency">
+        <a class="nav-link" href="{{baseUrl}}/dashboard/agency">
           <i class="material-icons">person</i>
           <p>Agency</p>
+        </a>
+      </li>
+      <li class="nav-item" id="Agen">
+        <a class="nav-link" href="{{baseUrl}}/dashboard/store">
+          <i class="material-icons">person</i>
+          <p>Store</p>
         </a>
       </li>
       {{/if}}

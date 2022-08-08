@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <h4>Add Car </h4>
-    <a href="" class="txt-primary">/Back</a>
+    <a href="{{baseUrl}}/dashboard/cars/" class="txt-primary">/Back</a>
   </div>
   <div class="card-body">
     <form action="store" method="post" enctype="multipart/form-data">
@@ -41,7 +41,7 @@
             <option value=0 selected>Choose</option>
             {{#each models}}
 
-            <option value={{this.id}}>{{this.model_name}}</option>
+            <option value={{this.id}}>{{this.make}} {{this.model_name}}</option>
 
 
             {{/each}}

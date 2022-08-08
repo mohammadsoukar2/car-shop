@@ -6,6 +6,8 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
 const setting = require('../../../setting/settings');
+
+const dashboard=require('../../src/api/dashboard/function.dashboard');
 //& ------------------------------import other routes --------------------
 
 const modelRouter = require('./model/modelRouter');
@@ -33,7 +35,7 @@ router.use((req, res, next) => {
         try {
 
             decodedToken = jwt.verify(req.session.token, setting.setting.botJwtSecret);
-            if (!decodedToken.isAdmin && !decodedToken.hasStore && decodedToken.hasAgency) {
+            if (!decodedToken.isAdmin && !decodedToken.hasStore && !decodedToken.hasAgency) {
                 res.send("403 FORBIDDEN")
             } else {
                 res.locals.user = {
@@ -65,7 +67,16 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
 
     //* return the main page of dashboard
-    res.render('dashboard/index');
+
+    userr=res.locals.user;
+
+    dashboard.getDashboardCounts(userr).then((data)=>{
+        console.log(data);
+        res.render('dashboard/index',{stat:data});
+    }).catch((err)=>{
+        console.log(err);
+    });
+    
 
 })
 

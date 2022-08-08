@@ -13,6 +13,7 @@
   <div class="card">
     <div class="card-header card-header-primary">
       Models table
+      There are {{models.length}} models
     </div>
     <div class="card-body">
       <div>
@@ -22,6 +23,9 @@
               <th scope="col">Model Name</th>
               <th scope="col">Model Make</th>
               <th scope="col">Model Fuel</th>
+              <th scope="col">Model tr</th>
+              <th scope="col">Model tp</th>
+
               <th scope="col" class="text-center">Action</th>
             </tr>
           </thead>
@@ -37,14 +41,20 @@
               <td>
                 {{this.fuel}}
               </td>
+              <td>
+                {{this.transmission}}
+              </td>
+              <td>
+                {{this.type}}
+              </td>
               <td class="text-center">
-                <form action="models/{{this.id}}/destroy" method="post" style="display: inline">
-                  <button class="bg-white text-danger mr-3" style="border:white !important;">
+                <form action="{{baseUrl}}/dashboard/models/{{this.id}}/destroy" method="post" style="display: inline">
+                  <button class="bg-white text-danger mr-3" style="border:white !important;cursor:pointer;outline:none">
                     <i class="material-icons">close</i>
                   </button>
                 </form>
 
-                <a class="bg-white text-success" style="border-radius:100% !important" href="models/{{this.id}}/edit">
+                <a class="bg-white text-success" style="border-radius:100% !important" href="{{baseUrl}}/dashboard/models/{{this.id}}/edit">
                   <i class="material-icons">edit</i>
                 </a>
               </td>

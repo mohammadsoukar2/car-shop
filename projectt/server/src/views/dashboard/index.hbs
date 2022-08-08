@@ -1,6 +1,8 @@
 <div id="dashboard">
 
   <div class="row">
+
+    {{#if user.isAdmin}}
     <div class="col-lg-4 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-header card-header-warning card-header-icon">
@@ -9,11 +11,12 @@
             <i class="material-icons">garage</i>
           </div>
           <p class="card-category">Cars</p>
-          <h3 class="card-title"><span id="car-count">
+          <h3 class="card-title"><span id="">
 
+              {{stat.car}}
             </span>
 
-            <small>Cars</small>
+            <small> Cars </small>
           </h3>
         </div>
         <div class="card-footer">
@@ -21,6 +24,31 @@
         </div>
       </div>
     </div>
+    {{/if}}
+    {{#if user.hasAgency}}
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-warning card-header-icon">
+
+          <div class="card-icon">
+            <i class="material-icons">garage</i>
+          </div>
+          <p class="card-category">Cars</p>
+          <h3 class="card-title"><span id="">
+
+              {{stat.car}}
+            </span>
+
+            <small> Cars </small>
+          </h3>
+        </div>
+        <div class="card-footer">
+
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    {{#if user.isAdmin}}
     <div class="col-lg-4 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-header card-header-success card-header-icon">
@@ -28,7 +56,7 @@
             <i class="material-icons">store</i>
           </div>
           <p class="card-category">Agencies</p>
-          <h3 class="card-title"><span id="agency-count"></span>
+          <h3 class="card-title"><span id="agency-count">{{stat.agency}}</span>
             <small>Agency</small>
           </h3>
         </div>
@@ -37,6 +65,9 @@
         </div>
       </div>
     </div>
+    {{/if}}
+
+    {{#if user.isAdmin}}
     <div class="col-lg-4 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-header card-header-danger card-header-icon">
@@ -44,7 +75,7 @@
             <i class="material-icons">build</i>
           </div>
           <p class="card-category">Parts</p>
-          <h3 class="card-title"><span id="part-count"></span>
+          <h3 class="card-title"><span>{{stat.part}}</span>
             <small>Parts</small>
           </h3>
         </div>
@@ -53,6 +84,30 @@
         </div>
       </div>
     </div>
+    {{/if}}
+
+
+
+    {{#if user.hasStore}}
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-info card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">build</i>
+          </div>
+          <p class="card-category">Parts</p>
+          <h3 class="card-title"><span>{{stat.part}}</span>
+            <small>Parts</small>
+          </h3>
+        </div>
+        <div class="card-footer">
+
+        </div>
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if user.isAdmin}}
     <div class="col-lg-6 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-header card-header-info card-header-icon">
@@ -60,13 +115,14 @@
             <i class="material-icons">store</i>
           </div>
           <p class="card-category">stores</p>
-          <h3 class="card-title"><span id="store-count"></span><small>Stores</small></h3>
+          <h3 class="card-title"><span id="store-count">{{stat.stores}}</span><small>Stores</small></h3>
         </div>
         <div class="card-footer">
 
         </div>
       </div>
     </div>
+    {{/if}}
     <div class="col-lg-6 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-header card-header-danger card-header-icon">
@@ -74,7 +130,7 @@
             <i class="material-icons">store</i>
           </div>
           <p class="card-category">Models</p>
-          <h3 class="card-title"><span id="model-count"></span>
+          <h3 class="card-title"><span id="model-count">{{stat.models}}</span>
             <small>Models</small>
           </h3>
         </div>
@@ -84,275 +140,4 @@
       </div>
     </div>
   </div>
-  {{!--
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card card-chart">
-        <div class="card-header card-header-success">
-          <div class="ct-chart" id="dailySalesChart"></div>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title">Daily Signup In The Website</h4>
-          <p class="card-category">
-            <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today.
-          </p>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="material-icons">access_time</i> updated 4 minutes ago
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card card-chart">
-        <div class="card-header card-header-warning">
-          <div class="ct-chart" id="websiteViewsChart"></div>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title">Website Visits</h4>
-          <p class="card-category">
-            <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase.
-          </p>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="material-icons">access_time</i> updated 4 minutes ago
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-header card-header-tabs card-header-primary">
-          <div class="nav-tabs-navigation">
-            <div class="nav-tabs-wrapper">
-              <span class="nav-tabs-title">Latest notifications</span>
-              <ul class="nav nav-tabs" data-tabs="tabs">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#profile" data-toggle="tab">
-                    <i class="material-icons"></i> Cars
-                    <div class="ripple-container"></div>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#messages" data-toggle="tab">
-                    <i class="material-icons"></i> Parts
-                    <div class="ripple-container"></div>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#settings" data-toggle="tab">
-                    <i class="material-icons"></i> Agencies
-                    <div class="ripple-container"></div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="tab-content">
-            <div class="tab-pane active" id="profile">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>Al-futim added Mercedes benz E-class to your car showroom.</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>Al-futim added VolksWagen Golf to your car showroom..</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Al-futim added Kia Rio to your car showroom. </td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>Al-futim added Hyndai Accord to your car showroom.</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="tab-pane" id="messages">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td>
-
-                    </td>
-                    <td>Mezo agency added a new car part for KIA rio.</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>AL-SHAM co added a new car part for mercedes benz.</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="tab-pane" id="settings">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>AL-FUTIM co added 10 new cars to the car showroom.</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>AL-SHAM co added 7 new car parts to the store.</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                    </td>
-                    <td>AL-BORAQ co added 8 new cars and their parts.</td>
-                    <td class="td-actions text-right">
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-header card-header-warning">
-          <h4 class="card-title">Latest requests</h4>
-        </div>
-        <div class="card-body table-responsive">
-          <table class="table table-hover">
-            <thead class="text-warning">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Request</th>
-              <th>Status</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>AL-FUTIM</td>
-                <td>Add VolksWagen Golf</td>
-                <td>
-                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                    <i class="material-icons">close</i>
-                  </button>
-                  <button type="button" rel="tooltip" title="Accept" class="btn btn-success btn-link btn-sm">
-                    <i class="material-icons">check</i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>AL-SHAM</td>
-                <td>Add new car part for KIA rio</td>
-                <td>
-                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                    <i class="material-icons">close</i>
-                  </button>
-                  <button type="button" rel="tooltip" title="Accept" class="btn btn-success btn-link btn-sm">
-                    <i class="material-icons">check</i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>AL-BORAQ</td>
-                <td>Add KIA cerato</td>
-                <td>
-                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                    <i class="material-icons">close</i>
-                  </button>
-                  <button type="button" rel="tooltip" title="Accept" class="btn btn-success btn-link btn-sm">
-                    <i class="material-icons">check</i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div> --}}
 </div>
-
-
-
-{{#section 'scripts'}}
-
-
-<script>
-
-  $.ajax({
-    url: 'http://localhost:3000/index/dashboard/counts',
-    success: function (data) {
-
-      if (data.code == 200) {
-        console.log(data.data.models);
-        $('#car-count').append(data.data.cars);
-        $('#model-count').append(data.data.models);
-        $('#store-count').append(data.data.stores);
-        $('#agency-count').append(data.data.agencies);
-        $('#part-count').append(data.data.parts);
-
-      }
-    }
-  })
-
-</script>
-
-
-{{/section}}

@@ -116,9 +116,8 @@ export const logInAdmin: RequestHandler[] = [
 				hasAgency = true;
 				agency_id = userAgency[0].id;
 			}
-			if (!user.isAdmin && !hasAgency && !hasStore) {
-				res.status(403).send("403 FORBIDDEN");
-			}
+			
+
 			const jwt: Jwt = {
 				uid: user.id,
 				name: user.name,
@@ -135,6 +134,11 @@ export const logInAdmin: RequestHandler[] = [
 
 			//res.status(HttpStatus.OK).json({ code: HttpStatus.OK, token: jwtToken, message: 'success' });
 			req.session.token = jwtToken;
+
+			if (!user.isAdmin && !hasAgency && !hasStore) {
+				res.status(403).send("403 FORBIDDEN");
+			}
+
 			req.flash("success", "Welcome ..");
 			res.redirect('/dashboard');
 
